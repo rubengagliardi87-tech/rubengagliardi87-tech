@@ -26,7 +26,7 @@ not whether the demo looks good.
 | | |
 |---|---|
 | **Years shipping** | 8 |
-| **Front** | TypeScript · Angular · React |
+| **Front** | TypeScript · Angular |
 | **Back** | C# / .NET · Node.js · SQL |
 | **Also** | browser automation (CDP) · document pipelines · AI-assisted development |
 | **Verification habit** | every claim in this page has a number, a test or a command behind it |
@@ -120,5 +120,5 @@ something actually changes, not when I feel like writing.
 
 ## Currently
 
-Looking for a **remote senior full-stack** role: TypeScript / Angular / React with a .NET and SQL backbone.
+Looking for a **remote senior full-stack** role: TypeScript / Angular with a .NET and SQL backbone.
 The full CV is available on request.
