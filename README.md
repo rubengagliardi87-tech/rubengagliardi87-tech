@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="img/banner.png" alt="Ruben Gagliardi — full-stack engineer" width="100%">
+</p>
+
 # Ruben Gagliardi
 
 **Full-stack engineer** — eight years shipping products end to end, from the database to the interface, and
