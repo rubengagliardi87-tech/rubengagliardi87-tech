@@ -1,73 +1,93 @@
 # Ruben Gagliardi — full-stack engineer
 
 I build products end to end: **TypeScript / Angular / React** on the front, **C# / .NET and SQL** on the back,
-and AI-assisted development as a daily tool rather than a demo. Eight years of shipping, most of them running
-technology for a business I also ran.
+plus the automation and the document pipelines that keep a small business running. Eight years of shipping,
+most of them running technology for a business I also ran.
 
-> **About the code.** The projects below are real, working software. Their source stays **private**: I am
-> advertising what I can do, not giving away the implementations. Read the description, look at the screens,
-> ask me anything — I am glad to walk through the design and the decisions in a call.
+> **About the code.** Everything below is real, working software — around 160 tools across six areas. The
+> source stays **private**: I am advertising what I can do, not giving away the implementations. Read the
+> descriptions, look at the screens, ask me anything — I am glad to walk through the design in a call.
 
 ---
 
 ## 1. Slot engine — booking without double bookings
 
-**What it is.** An API and dashboard for booking time slots on shared resources (arenas, rooms, coaches):
-opening hours, capacity, half-open intervals, cancellations that keep history.
+An API and dashboard for booking time slots on shared resources (arenas, rooms, coaches): opening hours,
+capacity, half-open intervals, cancellations that keep history.
 
-**The interesting part is not the CRUD.** It is the invariant: *two people asking for the same slot at the
-same moment must not both get it.* Exactly one request wins, the other gets a `409` with a reason.
+The interesting part is not the CRUD, it is the invariant: **two people asking for the same slot at the same
+moment must not both get it.** Exactly one request wins, the other gets a `409` with a reason.
 
-**Stack.** ASP.NET Core minimal API · EF Core + SQLite · xUnit · Angular
-**Evidence.** 19 automated tests — 12 on the domain rules, 7 through HTTP, including the concurrency one.
-
-**What was hard.** Half-open intervals are easy to get wrong (`11:00-12:00` does not overlap `10:00-11:00`),
-and the naive check-then-insert is a race. I serialise the booking per resource and I write down where that
-stops being enough (a second instance needs the database constraint, not the lock).
+`ASP.NET Core` · `EF Core + SQLite` · `xUnit` · `Angular` — 19 automated tests, including the concurrency one.
 
 <!-- screenshot: availability grid -->
-<!-- screenshot: 409 conflict with a readable reason -->
 
----
+## 2. Browser automation over the DevTools Protocol
 
-## 2. Operations automation — the tools I actually use
+Twenty scripts that drive a real Chrome the way a person would, for the work that has no API: filling long
+forms, clicking through portals, taking screenshots as evidence. The rules matter more than the automation:
 
-**What it is.** A set of small tools that run my own operations: browser automation over the **Chrome DevTools
-Protocol**, mailbox archiving with **SHA-256 manifests** for every moved file, a tab registry that only ever
-closes the tabs it opened itself.
+- one **tab registry**: a script only ever closes the tabs it opened itself — never the ones someone else is
+  working in;
+- hand-off on **CAPTCHA and OTP**, instead of pretending to solve them;
+- every action that failed is recorded with what was on screen at that moment.
 
-**Why it is worth showing.** Everyone says "I use AI". The engineering is the part around it: idempotent
-scripts, hashes to prove a file was not altered, written safety rules before the first click, and a rule that
-says *never* instead of *usually*.
+`Node.js` · `Chrome DevTools Protocol` · no Selenium, no browser extension
 
-**Stack.** Node.js · CDP · Gmail API · file integrity checks
+<!-- screenshot: tab registry -->
+
+## 3. Mailbox and Drive automation
+
+A mailbox archive and a Drive census, built around one promise: **never modify or delete a message.**
+
+- every archived year is written to dated folders with a **SHA-256 manifest** for each moved file;
+- a map of what moved where, so a file can be found again without reading the mailbox;
+- the count is verified before and after, and the archive carries its own evidence.
+
+`Node.js` · `Gmail API` · `Drive API` · SHA-256 integrity
 
 <!-- screenshot: archive manifest with hashes -->
-<!-- screenshot: the tab registry -->
 
----
+## 4. Document pipeline
 
-## 3. KDP publishing pipeline
+Scan the folders, extract text from PDFs, read images, index everything, and answer "where is that document"
+in one query. Around 8,400 documents indexed at the last run.
 
-**What it is.** The publishing side of a small editorial business: EPUB preparation, cover pipeline, metadata,
-and the checks that stop a book from being published with the wrong data.
+`Python` · `Node.js` · PDF text extraction · OCR · SQLite full-text search
 
-**Stack.** Python · EPUB/PDF tooling · browser automation · checklists as code
+<!-- screenshot: search across the index -->
 
-<!-- screenshot: pipeline report -->
+## 5. One CV, many variants
+
+A single source of truth for the CV, with generators that produce each targeted variant (and the Europass
+format) from the same data — so a fact is fixed once and never contradicts itself in another document.
+
+`Python` · data-driven document generation · PDF rendering
+
+<!-- screenshot: master → variant output -->
+
+## 6. Operations bookkeeping
+
+The unglamorous half: a deadline register, an outstanding-items register with ownership and claims, a
+dashboard that says what is stuck and for how long, and a weekly backup that verifies its own archive.
+
+`Node.js` · `SQLite` · scheduling · backups with verification
+
+<!-- screenshot: dashboard -->
 
 ---
 
 ## How I work
 
-- **Rules before code.** Intervals, uniqueness, capacity: written as tests before they are written as endpoints.
+- **Rules before code.** Intervals, uniqueness, capacity: written as tests before they become endpoints.
 - **Small surface.** Minimal APIs, one error contract, no layer for the sake of a layer.
 - **Boring operations.** Seeded fake data, reproducible runs, hashes instead of trust.
-- **Limits written down.** Every design note says where the solution stops working.
+- **Limits written down.** Every design note says where the solution stops working — the per-resource lock in
+  the slot engine is a good example: correct on SQLite, not enough on two instances.
 
 ## Currently
 
-Looking for a **remote senior full-stack** role. TypeScript/Angular/React with a .NET and SQL backbone.
+Looking for a **remote senior full-stack** role: TypeScript / Angular / React with a .NET and SQL backbone.
 
 - LinkedIn: <!-- TODO -->
 - The full CV is available on request.
