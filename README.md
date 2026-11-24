@@ -113,6 +113,11 @@ and a weekly backup that verifies its own archive.
 - I would have kept a public notebook from the start. This page should have existed three years ago, and the
   reason it did not is always the same: the work was urgent and the writing was not.
 
+## What I'm working on
+
+A dated log of what shipped, what is next, and what I am studying: **[NOW.md](NOW.md)** — updated when
+something actually changes, not when I feel like writing.
+
 ## Currently
 
 Looking for a **remote senior full-stack** role: TypeScript / Angular / React with a .NET and SQL backbone.
